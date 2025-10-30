@@ -2,14 +2,13 @@ import { Table, Button, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Header } from "../../components/Header";
 
-export const BooksPage = () => {
-  const books = [
+export const AuthorsPage = () => {
+  const authors = [
     {
       id: 1,
-      title: "Harry Potter e a Pedra Filosofal",
-      isbn: "978-65-5532-025-1",
-      published_year: "1997",
-      price: "300.00",
+      name: "J. K. Rowling",
+      birth_date: "31/07/1965",
+      nationality: "Inglês(esa)",
       created_at: "31/12/2023",
       updated_at: "31/12/2024",
     },
@@ -20,31 +19,29 @@ export const BooksPage = () => {
       <Header></Header>
 
       <Container>
-        <h2 className="mb-4">Livros</h2>
+        <h2 className="mb-4">Autores</h2>
 
         <Table striped bordered hover responsive>
           <thead>
             <tr>
-              <th>Título</th>
-              <th>ISBN</th>
-              <th>Ano de publicação</th>
-              <th>Preço</th>
+              <th>Nome</th>
+              <th>Data de nascimento</th>
+              <th>Nacionalidade</th>
               <th>Data de cadastro</th>
               <th>Data da última atualização</th>
               <th>Ações</th>
             </tr>
           </thead>
           <tbody>
-            {books.map((book) => (
-              <tr key={book.id}>
-                <td>{book.title}</td>
-                <td>{book.isbn}</td>
-                <td>{book.published_year}</td>
-                <td>R$ {book.price}</td>
-                <td>{book.created_at}</td>
-                <td>{book.updated_at}</td>
+            {authors.map((author) => (
+              <tr key={author.id}>
+                <td>{author.name}</td>
+                <td>{author.birth_date}</td>
+                <td>{author.nationality}</td>
+                <td>{author.created_at}</td>
+                <td>{author.updated_at}</td>
                 <td>
-                  <Link to={"/books/edit"}>
+                  <Link to={"/authors/edit"}>
                     <Button
                       title="Editar"
                       aria-label="Editar"
@@ -74,10 +71,10 @@ export const BooksPage = () => {
         </Table>
 
         <div className="d-flex justify-content-end mt-5">
-          <Link to="/books/new">
+          <Link to="/authors/new">
             <Button variant="success" className="d-flex align-items-center">
               <span className="material-symbols-outlined me-2">add</span>
-              <span>Novo Livro</span>
+              <span>Novo Autor</span>
             </Button>
           </Link>
         </div>
@@ -86,4 +83,4 @@ export const BooksPage = () => {
   );
 };
 
-export default BooksPage;
+export default AuthorsPage;

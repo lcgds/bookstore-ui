@@ -1,7 +1,7 @@
 import { Form, Button, Card, Container } from "react-bootstrap";
 import { Header } from "../../components/Header";
 
-const AuthorForm = () => {
+export const AuthorCreate = () => {
   return (
     <>
       <Header></Header>
@@ -13,12 +13,12 @@ const AuthorForm = () => {
             <Form className="d-grid gap-0 row-gap-3">
               <Form.Group>
                 <Form.Label>Nome</Form.Label>
-                <Form.Control type="text" name="name" required />
+                <Form.Control type="text" name="name" required autoFocus />
               </Form.Group>
 
               <Form.Group>
                 <Form.Label>Data de nascimento</Form.Label>
-                <Form.Control type="date" name="nationality" />
+                <Form.Control type="date" name="nationality" required />
               </Form.Group>
 
               <Form.Group>
@@ -280,4 +280,4 @@ const AuthorForm = () => {
   );
 };
 
-export default AuthorForm;
+export default AuthorCreate;

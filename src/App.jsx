@@ -5,10 +5,13 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // Pages
 import HomePage from "./pages/Home/HomePage";
-import AuthorsPage from "./pages/Authors/AuthorsPage";
-import AuthorForm from "./pages/Authors/AuthorForm";
-import BooksPage from "./pages/Books/BooksPage";
-import BookForm from "./pages/Books/BookForm";
+import AuthorCreate from "./pages/Authors/Create";
+import AuthorRead from "./pages/Authors/Read";
+import AuthorUpdate from "./pages/Authors/Update";
+
+import BookCreate from "./pages/Books/Create";
+import BookRead from "./pages/Books/Read";
+import BookUpdate from "./pages/Books/Update";
 
 function App() {
   return (
@@ -18,14 +21,14 @@ function App() {
         <Route path="/" element={<HomePage />} />
 
         {/* Autores - CRUD */}
-        <Route path="/authors" element={<AuthorsPage />} />
-        <Route path="/authors/new" element={<AuthorForm />} />
-        <Route path="/authors/edit" element={<AuthorForm />} />
+        <Route path="/authors" element={<AuthorRead />} />
+        <Route path="/authors/new" element={<AuthorCreate />} />
+        <Route path="/authors/edit" element={<AuthorUpdate />} />
 
         {/* Livros - CRUD */}
-        <Route path="/books" element={<BooksPage />} />
-        <Route path="/books/new" element={<BookForm />} />
-        <Route path="/books/edit" element={<BookForm />} />
+        <Route path="/books" element={<BookRead />} />
+        <Route path="/books/new" element={<BookCreate />} />
+        <Route path="/books/edit" element={<BookUpdate />} />
       </Routes>
     </Router>
   );
