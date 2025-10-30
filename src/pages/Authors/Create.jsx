@@ -1,16 +1,33 @@
-import { Form, Button, Card, Container } from "react-bootstrap";
+import { useState } from "react";
+import { Alert, Form, Button, Card, Container } from "react-bootstrap";
 import { Header } from "../../components/Header";
 
 export const AuthorCreate = () => {
+  const [show, setShow] = useState(false);
+
   return (
     <>
-      <Header></Header>
+      <Header />
+      {show && (
+        <Container className="mb-5">
+          <Alert variant="success" onClose={() => setShow(false)} dismissible>
+            <Alert.Heading>Registro cadastrado</Alert.Heading>
+          </Alert>
+        </Container>
+      )}
       <Container>
         <Card>
           <Card.Body>
             <h2 className="mb-4">Cadastrar Autor</h2>
 
-            <Form className="d-grid gap-0 row-gap-3">
+            <Form
+              className="d-grid gap-0 row-gap-3"
+              onSubmit={() => {
+                event.preventDefault();
+                setShow(true);
+                event.target.reset();
+              }}
+            >
               <Form.Group>
                 <Form.Label>Nome</Form.Label>
                 <Form.Control type="text" name="name" required autoFocus />

@@ -1,4 +1,5 @@
-import { Table, Button, Container } from "react-bootstrap";
+import { useState } from "react";
+import { Alert, Table, Button, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Header } from "../../components/Header";
 
@@ -15,10 +16,18 @@ export const BookRead = () => {
     },
   ];
 
+  const [show, setShow] = useState(false);
+
   return (
     <>
-      <Header></Header>
-
+      <Header />
+      {show && (
+        <Container className="mb-5">
+          <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+            <Alert.Heading>Registro excluído</Alert.Heading>
+          </Alert>
+        </Container>
+      )}
       <Container>
         <h2 className="mb-4">Livros</h2>
 
@@ -58,6 +67,11 @@ export const BookRead = () => {
                     </Button>
                   </Link>
                   <Button
+                    onClick={() => {
+                      setShow(true);
+                      document.getElementsByTagName("tr")[1].style.display =
+                        "none";
+                    }}
                     title="Excluir"
                     aria-label="Excluir"
                     variant="outline-danger"
