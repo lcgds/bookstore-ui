@@ -1,5 +1,7 @@
 # Tech Challenge
 
+!["Captura de tela exibindo a página inicial do sistema"](./captura_de_tela.png)
+
 Este Tech Challenge teve como objetivo desenvolver um sistema para gerenciamento de uma livraria. O foco do projeto é no front-end.
 
 ## Sumário
