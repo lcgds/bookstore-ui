@@ -43,8 +43,8 @@ A organização do repositório possui como principais pastas:
 
 ```mermaid
 erDiagram
-    BOOKS 0--1+ BOOKS_AUTHORS
-    AUTHORS 0--1+ BOOKS_AUTHORS
+    BOOKS ||--|{ BOOKS_AUTHORS : possui
+    AUTHORS ||--|{ BOOKS_AUTHORS  : possui
 
     BOOKS {
         INT id PK
