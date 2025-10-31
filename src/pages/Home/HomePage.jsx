@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 export const HomePage = () => {
   return (
     <>
-      <Header></Header>
+      <Header />
       <Container>
-        <div className="text-center">
+        <div className="text-center mb-5">
           <h1 className="display-4">Bem-vindo à Livraria</h1>
           <p className="lead">Gerencie seu acervo de livros e autores</p>
         </div>
@@ -16,7 +16,7 @@ export const HomePage = () => {
           <Col md={6} className="mb-4">
             <Card>
               <Card.Body className="text-center py-5">
-                <Card.Title>📚 Autores</Card.Title>
+                <Card.Title className="display-6">📚 Autores</Card.Title>
                 <Card.Text>Gerencie os autores do seu acervo</Card.Text>
                 <Link to="/authors">
                   <Button variant="primary">Ver Autores</Button>
@@ -28,7 +28,7 @@ export const HomePage = () => {
           <Col md={6} className="mb-4">
             <Card>
               <Card.Body className="text-center py-5">
-                <Card.Title>📖 Livros</Card.Title>
+                <Card.Title className="display-6">📖 Livros</Card.Title>
                 <Card.Text>Gerencie os livros do seu acervo</Card.Text>
                 <Link to="/books">
                   <Button variant="primary">Ver Livros</Button>
