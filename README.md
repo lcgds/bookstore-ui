@@ -8,12 +8,33 @@ Este Tech Challenge teve como objetivo desenvolver um sistema para gerenciamento
 
 - [Tech Challenge](#tech-challenge)
   - [Sumário](#sumário)
-  - [Tecnologias utilizadas](#tecnologias-utilizadas)
-    - [Estrutura do repositório](#estrutura-do-repositório)
-  - [Modelos de dados](#modelos-de-dados)
   - [Instalação e Configuração](#instalação-e-configuração)
     - [Pré-requisitos](#pré-requisitos)
     - [Como instalar](#como-instalar)
+  - [Tecnologias utilizadas](#tecnologias-utilizadas)
+    - [Estrutura do repositório](#estrutura-do-repositório)
+  - [Modelos de dados](#modelos-de-dados)
+
+## Instalação e Configuração
+
+### Pré-requisitos
+
+- [NodeJs](https://nodejs.org/en/download/)
+- [NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+
+### Como instalar
+
+1. Instalar as dependências:
+
+```bash
+    npm install
+```
+
+2. Iniciar a aplicação:
+
+```bash
+    npm run dev
+```
 
 ## Tecnologias utilizadas
 
@@ -69,25 +90,4 @@ erDiagram
         TIMESTAMP created_at
         TIMESTAMP updated_at
     }
-```
-
-## Instalação e Configuração
-
-### Pré-requisitos
-
-- [NodeJs](https://nodejs.org/en/download/)
-- [NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-
-### Como instalar
-
-1. Instalar as dependências:
-
-```bash
-    npm install
-```
-
-2. Iniciar a aplicação:
-
-```bash
-    npm run dev
 ```
