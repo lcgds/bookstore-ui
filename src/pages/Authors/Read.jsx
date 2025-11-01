@@ -1,19 +1,20 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Alert, Table, Button, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Header } from "../../components/Header";
+import { AuthorsFetch } from "../../api/authors.js";
 
 export const AuthorsPage = () => {
-  const authors = [
-    {
-      id: 1,
-      name: "J. K. Rowling",
-      birth_date: "31/07/1965",
-      nationality: "Inglês(esa)",
-      created_at: "31/12/2023",
-      updated_at: "31/12/2024",
-    },
-  ];
+
+  const [authors, setAuthors] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await new AuthorsFetch().getAllAuthors(true);
+      setAuthors(data.data);
+    }
+    fetchData()
+  }, []);
 
   const [show, setShow] = useState(false);
 
@@ -50,7 +51,7 @@ export const AuthorsPage = () => {
                 <td>{author.created_at}</td>
                 <td>{author.updated_at}</td>
                 <td>
-                  <Link to={"/authors/edit"}>
+                  <Link to={"/authors/edit"} state={author}>
                     <Button
                       title="Editar"
                       aria-label="Editar"
@@ -65,9 +66,8 @@ export const AuthorsPage = () => {
                   </Link>
                   <Button
                     onClick={() => {
+                      new AuthorsFetch().deleteAuthor(author.id);
                       setShow(true);
-                      document.getElementsByTagName("tr")[1].style.display =
-                        "none";
                     }}
                     title="Excluir"
                     aria-label="Excluir"

@@ -1,9 +1,20 @@
 import { useState } from "react";
 import { Alert, Form, Button, Card, Container } from "react-bootstrap";
 import { Header } from "../../components/Header";
+import { useLocation } from "react-router-dom";
+import { AuthorsFetch } from "../../api/authors.js";
+import { Handler } from "../../utils/handlersReact.js";
 
 export const AuthorUpdate = () => {
   const [show, setShow] = useState(false);
+
+  const initialData = useLocation().state || {};
+
+  const [formData, setFormData] = useState({
+    name: initialData.name || "",
+    birth_date: initialData.birth_date || "",
+    nationality: initialData.nationality || ""
+  });
 
   return (
     <>
@@ -24,6 +35,7 @@ export const AuthorUpdate = () => {
               className="d-grid gap-0 row-gap-3"
               onSubmit={() => {
                 event.preventDefault();
+                new AuthorsFetch().updateAuthor(initialData.id, formData);
                 setShow(true);
               }}
             >
@@ -32,8 +44,9 @@ export const AuthorUpdate = () => {
                 <Form.Control
                   type="text"
                   name="name"
-                  value="J. K. Rowling"
+                  value={formData.name}
                   required
+                  onChange={(e) => new Handler().handleChange(e, setFormData)}
                 />
               </Form.Group>
 
@@ -42,8 +55,9 @@ export const AuthorUpdate = () => {
                 <Form.Control
                   type="date"
                   name="birth_date"
-                  value="1965-07-31"
+                  value={formData.birth_date}
                   required
+                  onChange={(e) => new Handler().handleChange(e, setFormData)}
                 />
               </Form.Group>
 
@@ -51,7 +65,9 @@ export const AuthorUpdate = () => {
                 <Form.Label>Nacionalidade</Form.Label>
                 <Form.Select
                   aria-label="Selecione a nacionalidade"
-                  defaultValue="inglês(esa)"
+                  name="nationality"
+                  value={formData.nationality}
+                  onChange={(e) => new Handler().handleChange(e, setFormData)}
                 >
                   <option value="afegã(o)">afegã(o)</option>
                   <option value="sul-africano(a)">sul-africano(a)</option>

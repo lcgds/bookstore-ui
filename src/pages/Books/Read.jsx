@@ -1,20 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert, Table, Button, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Header } from "../../components/Header";
+import { BooksFetch } from "../../api/books.js";
 
 export const BookRead = () => {
-  const books = [
-    {
-      id: 1,
-      title: "Harry Potter e a Pedra Filosofal",
-      isbn: "978-65-5532-025-1",
-      published_year: "1997",
-      price: "400,00",
-      created_at: "31/12/2023",
-      updated_at: "31/12/2024",
-    },
-  ];
+  
+  const [books, setBooks] = useState([]);
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await new BooksFetch().getAllBooks(true);
+      setBooks(data.data);
+    }
+    fetchData();
+    },[]);
 
   const [show, setShow] = useState(false);
 
@@ -53,7 +53,7 @@ export const BookRead = () => {
                 <td>{book.created_at}</td>
                 <td>{book.updated_at}</td>
                 <td>
-                  <Link to={"/books/edit"}>
+                  <Link to={"/books/edit"} state={book}>
                     <Button
                       title="Editar"
                       aria-label="Editar"
@@ -68,9 +68,8 @@ export const BookRead = () => {
                   </Link>
                   <Button
                     onClick={() => {
+                      new BooksFetch().deleteBook(book.id);
                       setShow(true);
-                      document.getElementsByTagName("tr")[1].style.display =
-                        "none";
                     }}
                     title="Excluir"
                     aria-label="Excluir"

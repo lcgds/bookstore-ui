@@ -1,9 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert, Form, Button, Card, Container } from "react-bootstrap";
 import { Header } from "../../components/Header";
+import { useLocation } from "react-router-dom";
+import { Handler } from "../../utils/handlersReact.js";
+import { BooksFetch } from "../../api/books.js";
 
 export const BookUpdate = () => {
   const [show, setShow] = useState(false);
+
+  const initialData = useLocation().state || {};
+
+  const [formData, setFormData] = useState({
+    title: initialData.title || "",
+    isbn: initialData.isbn || "",
+    published_year: initialData.published_year || "",
+    price: initialData.price || "",
+    stock: initialData.stock || "",
+  });
 
   return (
     <>
@@ -23,6 +36,7 @@ export const BookUpdate = () => {
               className="d-grid gap-0 row-gap-3"
               onSubmit={() => {
                 event.preventDefault();
+                new BooksFetch().updateBook(initialData.id, formData);
                 setShow(true);
               }}
             >
@@ -31,8 +45,9 @@ export const BookUpdate = () => {
                 <Form.Control
                   type="text"
                   name="title"
-                  value="Harry Potter e a Pedra Filosofal"
+                  value={formData.title}
                   required
+                  onChange={(e) => new Handler().handleChange(e, setFormData)}
                 />
               </Form.Group>
 
@@ -41,18 +56,21 @@ export const BookUpdate = () => {
                 <Form.Control
                   type="text"
                   name="isbn"
-                  value="978-65-5532-025-1"
+                  value={formData.isbn}
                   required
+                  onChange={(e) => new Handler().handleChange(e, setFormData)}
                 />
               </Form.Group>
 
               <Form.Group>
                 <Form.Label>Ano de publicação</Form.Label>
                 <Form.Control
-                  type="text"
+                  type="number"
+                  step="1"
                   name="published_year"
-                  value="1997"
+                  value={formData.published_year}
                   required
+                  onChange={(e) => new Handler().handleChange(e, setFormData)}
                 />
               </Form.Group>
 
@@ -60,11 +78,26 @@ export const BookUpdate = () => {
                 <Form.Label>Preço</Form.Label>
                 <Form.Control
                   type="number"
-                  name="isbn"
-                  min="1"
+                  name="price"
+                  min="0"
+                  step="0.01"
                   placeholder="R$"
-                  value="40"
+                  value={formData.price}
                   required
+                  onChange={(e) => new Handler().handleChange(e, setFormData)}
+                />
+              </Form.Group>
+
+              <Form.Group>
+                <Form.Label>Estoque</Form.Label>
+                <Form.Control
+                  type="number"
+                  name="stock"
+                  min="0"
+                  step="1"
+                  value={formData.stock}
+                  required
+                  onChange={(e) => new Handler().handleChange(e, setFormData)}
                 />
               </Form.Group>
 
