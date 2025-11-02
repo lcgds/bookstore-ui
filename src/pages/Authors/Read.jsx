@@ -5,6 +5,7 @@ import { AuthorsFetch } from "../../api/authors.js";
 import { ActionButton } from "../../components/Button/ActionButton.jsx";
 import { CustomTable } from "../../components/Table/index.jsx";
 import { HandlerTimeStamp } from "../../utils/handlerTimestamp.js";
+import { NewRegisterButton } from "../../components/Button/NewRegisterButton.jsx";
 
 export const AuthorsPage = () => {
 
@@ -73,13 +74,11 @@ export const AuthorsPage = () => {
         </CustomTable>
 
         <div className="d-flex justify-content-end mt-5">
-            <ActionButton
+            <NewRegisterButton
               page="/authors/new"
               title="Novo Autor"
               variant="success"
-              symbol="Novo Autor"
-              classNameButton="d-flex align-items-center btn btn-success"
-              classNameSpan="material-symbols-outlined me-2"
+              classNameButton="d-flex align-items-center"
             />
         </div>
       </Container>

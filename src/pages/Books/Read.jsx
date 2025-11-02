@@ -8,6 +8,7 @@ import { ActionButton } from "../../components/Button/ActionButton.jsx";
 import { HandlerTimeStamp } from "../../utils/handlerTimestamp.js";
 import { AuthorsFetch } from "../../api/authors.js";
 import { AuthrosList } from "../../components/Table/AuthorsList.jsx";
+import { NewRegisterButton } from "../../components/Button/NewRegisterButton.jsx";
 
 export const BookRead = () => {
   
@@ -82,13 +83,11 @@ export const BookRead = () => {
         </CustomTable>
 
         <div className="d-flex justify-content-end mt-5">
-          <ActionButton
+          <NewRegisterButton
             page="/books/new"
             title="Novo Livro"
             variant="success"
             classNameButton="d-flex align-items-center"
-            classNameSpan="material-symbols-outlined me-2"
-            symbol="Novo Livro"
           />
         </div>
       </Container>
