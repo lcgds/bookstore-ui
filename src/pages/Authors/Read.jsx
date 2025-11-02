@@ -35,13 +35,13 @@ export const AuthorsPage = () => {
         <CustomTable
           table_columns={["Nome", "Data de Nascimento", "Nacionalidade", "Data de Cadastro", "Data da Última Atualização", "Ações"]}
         >
-          {authors.map((author) => (
+          {authors.sort((a, b) => a.name.localeCompare(b.name)).map((author) => (
             <tr key={author.id}>
               <td>{author.name}</td>
               <td>{author.birth_date}</td>
               <td>{author.nationality}</td>
               <td>{author.created_at}</td>
-              <td>{author.updated_at}</td>
+              <td>{author.update_at}</td>
               <td>
                 <ActionButton
                   page="/authors/edit"

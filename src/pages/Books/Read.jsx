@@ -36,7 +36,7 @@ export const BookRead = () => {
         <CustomTable
           table_columns={["Título", "ISBN", "Ano de Publicação", "Preço", "Data de Cadastro", "Data da Última Atualização", "Ações"]}
         >
-          {books.map((book) => (
+          {books.sort((a, b) => a.title.localeCompare(b.title)).map((book) => (
             <tr key={book.id}>
               <td>{book.title}</td>
               <td>{book.isbn}</td>
