@@ -4,6 +4,7 @@ import { Header } from "../../components/Header";
 import { AuthorsFetch } from "../../api/authors.js"; 
 import { ActionButton } from "../../components/Button/ActionButton.jsx";
 import { CustomTable } from "../../components/Table/index.jsx";
+import { HandlerTimeStamp } from "../../utils/handlerTimestamp.js";
 
 export const AuthorsPage = () => {
 
@@ -33,15 +34,15 @@ export const AuthorsPage = () => {
         <h2 className="mb-4">Autores</h2>
 
         <CustomTable
-          table_columns={["Nome", "Data de Nascimento", "Nacionalidade", "Data de Cadastro", "Data da Última Atualização", "Ações"]}
+          table_columns={["Nome", "Data de Nascimento", "Nacionalidade", "Data/Hora de Cadastro", "Data/Hora da Última Atualização", "Ações"]}
         >
           {authors.sort((a, b) => a.name.localeCompare(b.name)).map((author) => (
             <tr key={author.id}>
               <td>{author.name}</td>
               <td>{author.birth_date}</td>
               <td>{author.nationality}</td>
-              <td>{author.created_at}</td>
-              <td>{author.update_at}</td>
+              <td>{new HandlerTimeStamp().formatTimestampToDateHour(author.created_at)}</td>
+              <td>{new HandlerTimeStamp().formatTimestampToDateHour(author.update_at)}</td>
               <td>
                 <ActionButton
                   page="/authors/edit"
