@@ -6,6 +6,8 @@ import { BooksFetch } from "../../api/books.js";
 import { CustomTable } from "../../components/Table/index.jsx";
 import { ActionButton } from "../../components/Button/ActionButton.jsx";
 import { HandlerTimeStamp } from "../../utils/handlerTimestamp.js";
+import { AuthorsFetch } from "../../api/authors.js";
+import { AuthrosList } from "../../components/Table/AuthorsList.jsx";
 
 export const BookRead = () => {
   
@@ -35,7 +37,7 @@ export const BookRead = () => {
         <h2 className="mb-4">Livros</h2>
 
         <CustomTable
-          table_columns={["Título", "ISBN", "Ano de Publicação", "Preço", "Data/Hora de Cadastro", "Data/Hora da Última Atualização", "Ações"]}
+          table_columns={["Título", "ISBN", "Ano de Publicação", "Preço", "Estoque", "Autores", "Data/Hora de Cadastro", "Data/Hora da Última Atualização", "Ações"]}
         >
           {books.sort((a, b) => a.title.localeCompare(b.title)).map((book) => (
             <tr key={book.id}>
@@ -43,6 +45,10 @@ export const BookRead = () => {
               <td>{book.isbn}</td>
               <td>{book.published_year}</td>
               <td>R$ {book.price}</td>
+              <td>{book.stock}</td>
+              <td>
+                <AuthrosList authors_id_list={book.authors_id}/>
+              </td>
               <td>{new HandlerTimeStamp().formatTimestampToDateHour(book.created_at)}</td>
               <td>{new HandlerTimeStamp().formatTimestampToDateHour(book.updated_at)}</td>
               <td>

@@ -9,11 +9,24 @@ import { CustomFormField } from "../../components/Form/CustomFormField.jsx";
 import { CustomFormAuthorsSelection } from "../../components/Form/CustomFormAuthorsSelection.jsx";
 import { SubmitButton } from "../../components/Button/SubmitButton.jsx";
 import { BackButton } from "../../components/Button/BackButton.jsx";
+import { AuthorsFetch } from "../../api/authors.js";
 
 export const BookUpdate = () => {
   const [show, setShow] = useState(false);
 
   const initialData = useLocation().state || {};
+
+  const [allAuthors, setAllAuthors] = useState([]);
+  const [searchAuthor, setSearchAuthor] = useState("");
+
+  useEffect(() => {
+    const fetchAuthors = async () => {
+      const response = await new AuthorsFetch().getAllAuthors(true);
+      setAllAuthors(response.data);
+    };
+
+    fetchAuthors();
+  }, []);
 
   const [formData, setFormData] = useState({
     title: initialData.title || "",
@@ -21,6 +34,7 @@ export const BookUpdate = () => {
     published_year: initialData.published_year || "",
     price: initialData.price || "",
     stock: initialData.stock || "",
+    author_ids: initialData.authors_id || []
   });
 
   return (
@@ -67,10 +81,10 @@ export const BookUpdate = () => {
               <CustomFormField
                 label_text="Ano de Publicação"
                 typeField="number"
-                nameField="publish_year"
+                nameField="published_year"
                 step="1"
                 min="0"
-                formValue={formData.publish_year}
+                formValue={formData.published_year}
                 setFormData={setFormData}
               />
 
@@ -95,6 +109,15 @@ export const BookUpdate = () => {
                 setFormData={setFormData}
               />
 
+              <CustomFormAuthorsSelection
+                label_text="Autores"
+                searchFormValue={searchAuthor}
+                setSearchAuthorFunction={setSearchAuthor}
+                allAuthors={allAuthors}
+                formData={formData}
+                setFormData={setFormData}
+              />
+
               <div className="d-flex gap-2 mt-4 justify-content-end">
               
                 <SubmitButton
@@ -110,88 +133,6 @@ export const BookUpdate = () => {
               </div>
 
             </CustomForm>
-            {/* <Form
-              className="d-grid gap-0 row-gap-3"
-              onSubmit={() => {
-                event.preventDefault();
-                new BooksFetch().updateBook(initialData.id, formData);
-                setShow(true);
-              }}
-            >
-              <Form.Group>
-                <Form.Label>Título</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="title"
-                  value={formData.title}
-                  required
-                  onChange={(e) => new Handler().handleChange(e, setFormData)}
-                />
-              </Form.Group>
-
-              <Form.Group>
-                <Form.Label>ISBN</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="isbn"
-                  value={formData.isbn}
-                  required
-                  onChange={(e) => new Handler().handleChange(e, setFormData)}
-                />
-              </Form.Group>
-
-              <Form.Group>
-                <Form.Label>Ano de publicação</Form.Label>
-                <Form.Control
-                  type="number"
-                  step="1"
-                  name="published_year"
-                  value={formData.published_year}
-                  required
-                  onChange={(e) => new Handler().handleChange(e, setFormData)}
-                />
-              </Form.Group>
-
-              <Form.Group>
-                <Form.Label>Preço</Form.Label>
-                <Form.Control
-                  type="number"
-                  name="price"
-                  min="0"
-                  step="0.01"
-                  placeholder="R$"
-                  value={formData.price}
-                  required
-                  onChange={(e) => new Handler().handleChange(e, setFormData)}
-                />
-              </Form.Group>
-
-              <Form.Group>
-                <Form.Label>Estoque</Form.Label>
-                <Form.Control
-                  type="number"
-                  name="stock"
-                  min="0"
-                  step="1"
-                  value={formData.stock}
-                  required
-                  onChange={(e) => new Handler().handleChange(e, setFormData)}
-                />
-              </Form.Group>
-
-              <div className="d-flex gap-2 mt-4 justify-content-end">
-                <Button variant="primary" type="submit">
-                  Salvar
-                </Button>
-
-                <Button
-                  variant="secondary"
-                  onClick={() => window.history.back()}
-                >
-                  Cancelar
-                </Button>
-              </div>
-            </Form> */}
           </Card.Body>
         </Card>
       </Container>
