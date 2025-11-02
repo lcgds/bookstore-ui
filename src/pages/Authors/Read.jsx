@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { Alert, Table, Button, Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import { Header } from "../../components/Header";
-import { AuthorsFetch } from "../../api/authors.js";
+import { AuthorsFetch } from "../../api/authors.js"; 
+import { ActionButton } from "../../components/Button/ActionButton.jsx";
+import { CustomTable } from "../../components/Table/index.jsx";
 
 export const AuthorsPage = () => {
 
@@ -31,66 +32,54 @@ export const AuthorsPage = () => {
       <Container>
         <h2 className="mb-4">Autores</h2>
 
-        <Table striped bordered hover responsive>
-          <thead>
-            <tr>
-              <th>Nome</th>
-              <th>Data de nascimento</th>
-              <th>Nacionalidade</th>
-              <th>Data de cadastro</th>
-              <th>Data da última atualização</th>
-              <th>Ações</th>
+        <CustomTable
+          table_columns={["Nome", "Data de Nascimento", "Nacionalidade", "Data de Cadastro", "Data da Última Atualização", "Ações"]}
+        >
+          {authors.map((author) => (
+            <tr key={author.id}>
+              <td>{author.name}</td>
+              <td>{author.birth_date}</td>
+              <td>{author.nationality}</td>
+              <td>{author.created_at}</td>
+              <td>{author.updated_at}</td>
+              <td>
+                <ActionButton
+                  page="/authors/edit"
+                  obj={author}
+                  title="Editar"
+                  variant="outline-primary"
+                  symbol="edit"
+                  classNameButton="me-2"
+                  classNameSpan="material-symbols-outlined d-flex justify-content-center align-center"
+                />
+
+                <ActionButton
+                  page="#"
+                  title="Excluir"
+                  variant="outline-danger"
+                  symbol="delete"
+                  classNameButton="me-2"
+                  classNameSpan="material-symbols-outlined d-flex justify-content-center align-center"
+                  onClick={() => {
+                    new AuthorsFetch().deleteAuthor(author.id);
+                    setShow(true);
+                  }}
+                />
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {authors.map((author) => (
-              <tr key={author.id}>
-                <td>{author.name}</td>
-                <td>{author.birth_date}</td>
-                <td>{author.nationality}</td>
-                <td>{author.created_at}</td>
-                <td>{author.updated_at}</td>
-                <td>
-                  <Link to={"/authors/edit"} state={author}>
-                    <Button
-                      title="Editar"
-                      aria-label="Editar"
-                      variant="outline-primary"
-                      size="sm"
-                      className="me-2"
-                    >
-                      <span className="material-symbols-outlined d-flex justify-content-center align-center">
-                        edit
-                      </span>
-                    </Button>
-                  </Link>
-                  <Button
-                    onClick={() => {
-                      new AuthorsFetch().deleteAuthor(author.id);
-                      setShow(true);
-                    }}
-                    title="Excluir"
-                    aria-label="Excluir"
-                    variant="outline-danger"
-                    size="sm"
-                  >
-                    <span className="material-symbols-outlined d-flex justify-content-center align-center">
-                      delete
-                    </span>
-                  </Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
+          ))}
+
+        </CustomTable>
 
         <div className="d-flex justify-content-end mt-5">
-          <Link to="/authors/new">
-            <Button variant="success" className="d-flex align-items-center">
-              <span className="material-symbols-outlined me-2">add</span>
-              <span>Novo Autor</span>
-            </Button>
-          </Link>
+            <ActionButton
+              page="/authors/new"
+              title="Novo Autor"
+              variant="success"
+              symbol="Novo Autor"
+              classNameButton="d-flex align-items-center btn btn-success"
+              classNameSpan="material-symbols-outlined me-2"
+            />
         </div>
       </Container>
     </>

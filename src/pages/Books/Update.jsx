@@ -4,6 +4,11 @@ import { Header } from "../../components/Header";
 import { useLocation } from "react-router-dom";
 import { Handler } from "../../utils/handlersReact.js";
 import { BooksFetch } from "../../api/books.js";
+import { CustomForm } from "../../components/Form/CustomForm.jsx";
+import { CustomFormField } from "../../components/Form/CustomFormField.jsx";
+import { CustomFormAuthorsSelection } from "../../components/Form/CustomFormAuthorsSelection.jsx";
+import { SubmitButton } from "../../components/Button/SubmitButton.jsx";
+import { BackButton } from "../../components/Button/BackButton.jsx";
 
 export const BookUpdate = () => {
   const [show, setShow] = useState(false);
@@ -32,7 +37,80 @@ export const BookUpdate = () => {
         <Card>
           <Card.Body>
             <h2 className="mb-4">Editar Livro</h2>
-            <Form
+
+            <CustomForm
+              className="d-grid gap-0 row-gap-3"
+              onSubmit={() => {
+                event.preventDefault();
+                new BooksFetch().updateBook(initialData.id, formData);
+                setShow(true);
+              }}
+            >
+              
+              <CustomFormField
+                label_text="Título"
+                typeField="text"
+                nameField="title"
+                autoFocus={true}
+                formValue={formData.title}
+                setFormData={setFormData}
+              />
+
+              <CustomFormField
+                label_text="ISBN"
+                typeField="text"
+                nameField="isbn"
+                formValue={formData.isbn}
+                setFormData={setFormData}
+              />
+
+              <CustomFormField
+                label_text="Ano de Publicação"
+                typeField="number"
+                nameField="publish_year"
+                step="1"
+                min="0"
+                formValue={formData.publish_year}
+                setFormData={setFormData}
+              />
+
+              <CustomFormField
+                label_text="Preço"
+                typeField="number"
+                nameField="price"
+                step="0.01"
+                min="0"
+                placeholder="R$"
+                formValue={formData.price}
+                setFormData={setFormData}
+              />
+
+              <CustomFormField
+                label_text="Estoque"
+                typeField="number"
+                nameField="stock"
+                step="1"
+                min="0"
+                formValue={formData.stock}
+                setFormData={setFormData}
+              />
+
+              <div className="d-flex gap-2 mt-4 justify-content-end">
+              
+                <SubmitButton
+                  variant="primary"
+                  textButton="Salvar"
+                />
+
+                <BackButton
+                  variant="secondary"
+                  textButton="Cancelar"
+                />
+                
+              </div>
+
+            </CustomForm>
+            {/* <Form
               className="d-grid gap-0 row-gap-3"
               onSubmit={() => {
                 event.preventDefault();
@@ -113,7 +191,7 @@ export const BookUpdate = () => {
                   Cancelar
                 </Button>
               </div>
-            </Form>
+            </Form> */}
           </Card.Body>
         </Card>
       </Container>
