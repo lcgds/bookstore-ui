@@ -63,7 +63,7 @@ export const AuthorsPage = () => {
                   classNameButton="me-2"
                   classNameSpan="material-symbols-outlined d-flex justify-content-center align-center"
                   onClick={() => {
-                    new AuthorsFetch().deleteAuthor(author.id);
+                    new AuthorsFetch().deleteAuthor(author.id, true);
                     setShow(true);
                   }}
                 />
